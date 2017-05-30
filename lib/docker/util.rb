@@ -212,7 +212,7 @@ module Docker::Util
 
   def build_auth_header(credentials)
     credentials = credentials.to_json if credentials.is_a?(Hash)
-    encoded_creds = Base64.encode64(credentials).gsub(/\n/, '')
+    encoded_creds = Base64.urlsafe_encode64(credentials).gsub(/\n/, '')
     {
       'X-Registry-Auth' => encoded_creds
     }
@@ -230,7 +230,7 @@ module Docker::Util
       }
     }.to_json
 
-    encoded_header = Base64.encode64(header).gsub(/\n/, '')
+    encoded_header = Base64.urlsafe_encode64(header).gsub(/\n/, '')
 
     {
       'X-Registry-Config' => encoded_header

@@ -85,7 +85,9 @@ describe Docker::Util do
       }
     }
     let(:credential_string) { credentials.to_json }
-    let(:encoded_creds) { Base64.encode64(credential_string).gsub(/\n/, '') }
+    let(:encoded_creds) {
+      Base64.urlsafe_encode64(credential_string).gsub(/\n/, '')
+    }
     let(:expected_header) {
       {
         'X-Registry-Auth' => encoded_creds
@@ -130,7 +132,9 @@ describe Docker::Util do
       }.to_json
     }
 
-    let(:encoded_creds) { Base64.encode64(credentials_object).gsub(/\n/, '') }
+    let(:encoded_creds) {
+      Base64.urlsafe_encode64(credentials_object).gsub(/\n/, '')
+    }
     let(:expected_header) {
       {
         'X-Registry-Config' => encoded_creds
